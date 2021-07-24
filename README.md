@@ -35,7 +35,13 @@ INSERT INTO "Creds" values (1,'<Valid API Key Here>',true,now(),now());
 #### Ingest Videos
 
 ```http
-  POST /api/v1/ingest/:query?publishedAfter=<timestamp> 
+  POST /api/v1/ingest/
+```
+```json
+{
+  "query" : "how to",
+  "publishedAfter": "2021-02-20"
+}
 ```
 
 | Parameter | Type     | Description                        |
