@@ -62,7 +62,7 @@ ALTER SEQUENCE public."Creds_id_seq" OWNED BY public."Creds".id;
 --
 
 CREATE TABLE public."Videos" (
-    id integer NOT NULL,
+    id character varying(255) NOT NULL,
     title character varying(255),
     description character varying(255),
     "metaData" json,
@@ -74,39 +74,10 @@ CREATE TABLE public."Videos" (
 ALTER TABLE public."Videos" OWNER TO yt;
 
 --
--- Name: Videos_id_seq; Type: SEQUENCE; Schema: public; Owner: yt
---
-
-CREATE SEQUENCE public."Videos_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public."Videos_id_seq" OWNER TO yt;
-
---
--- Name: Videos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yt
---
-
-ALTER SEQUENCE public."Videos_id_seq" OWNED BY public."Videos".id;
-
-
---
 -- Name: Creds id; Type: DEFAULT; Schema: public; Owner: yt
 --
 
 ALTER TABLE ONLY public."Creds" ALTER COLUMN id SET DEFAULT nextval('public."Creds_id_seq"'::regclass);
-
-
---
--- Name: Videos id; Type: DEFAULT; Schema: public; Owner: yt
---
-
-ALTER TABLE ONLY public."Videos" ALTER COLUMN id SET DEFAULT nextval('public."Videos_id_seq"'::regclass);
 
 
 --
@@ -130,13 +101,6 @@ COPY public."Videos" (id, title, description, "metaData", "createdAt", "updatedA
 --
 
 SELECT pg_catalog.setval('public."Creds_id_seq"', 1, false);
-
-
---
--- Name: Videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yt
---
-
-SELECT pg_catalog.setval('public."Videos_id_seq"', 1, false);
 
 
 --
