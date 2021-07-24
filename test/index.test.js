@@ -10,6 +10,8 @@ describe('Server', () => {
     before(async () => {
         await db.sequelize.sync({ force: true })
         await db.Video.create({ title: "hello", "description": "test" })
+        await db.Video.create({ title: "my", "description": "name" })
+        await db.Video.create({ title: "welcome", "description": "world" })
     })
     describe('UP Route', () => {
         it('should be running', async () => {
@@ -19,9 +21,10 @@ describe('Server', () => {
         })
     })
     describe('Video APIs', () => {
-        it.skip('GET /api/v1/video', async () => {
+        it('GET /api/v1/video', async () => {
             let res = await request(app).get("/api/v1/video");
             assert.strictEqual(res.status, 200, 'Status is  200');
+            expect(res.body).to.deep.equalInAnyOrder({ total: 3, offset: 0, limit: 10, videos: [{ title: "hello", description: "test" }, { title: "my", description: "name" }, { title: "welcome", description: "world" }] });
         })
     })
     describe('Ingest APIs', () => {
