@@ -10,10 +10,16 @@ const ingest = async (query, publishedAfter) => {
     let creds = await models.Creds.findOne({ "where": { "active": true } })
     creds = creds.dataValues;
     const { status, data } = await search(creds, query, publishedAfter)
+    console.log(data);
     if (status === 200) {
         let videos = data.items.map(transformItem)
-        let insert = await models.Video.bulkCreate(videos)
+        console.log(videos);
+        let insert = await models.Video.bulkCreate(videos, { ignoreDuplicates: true })
         return insert;
+    }
+    else if (status === 403) {
+        // TODO: disable the API key and use other api key
+        return null;
     }
     else {
         return null;
@@ -30,5 +36,4 @@ const transformItem = (item) => {
     return data;
 }
 
-// module.exports.search = search;
 module.exports.ingest = ingest;
