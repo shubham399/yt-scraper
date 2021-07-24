@@ -1,0 +1,26 @@
+version: "3"
+services:
+  yt-db:
+    image: "postgres:12.3"
+    container_name: "yt-database"
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sql-seed/yt-db.sql:/docker-entrypoint-initdb.d/create_schema.sql:Z
+    networks:
+      - yt-network
+    hostname: yt-db
+    environment:
+      - POSTGRES_DB=database_development
+      - POSTGRES_USER=yt
+      - POSTGRES_PASSWORD=yt
+      - POSTGRES_HOST_AUTH_METHOD=md5
+      - POSTGRES_INITDB_ARGS=--auth=md5
+networks:
+  yt-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.200.0.0/16
+          gateway: 172.200.0.1
