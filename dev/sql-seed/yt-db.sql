@@ -21,6 +21,43 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: Creds; Type: TABLE; Schema: public; Owner: yt
+--
+
+CREATE TABLE public."Creds" (
+    id integer NOT NULL,
+    key character varying(255),
+    active boolean,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."Creds" OWNER TO yt;
+
+--
+-- Name: Creds_id_seq; Type: SEQUENCE; Schema: public; Owner: yt
+--
+
+CREATE SEQUENCE public."Creds_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Creds_id_seq" OWNER TO yt;
+
+--
+-- Name: Creds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yt
+--
+
+ALTER SEQUENCE public."Creds_id_seq" OWNED BY public."Creds".id;
+
+
+--
 -- Name: Videos; Type: TABLE; Schema: public; Owner: yt
 --
 
@@ -28,6 +65,7 @@ CREATE TABLE public."Videos" (
     id integer NOT NULL,
     title character varying(255),
     description character varying(255),
+    "metaData" json,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL
 );
@@ -58,6 +96,13 @@ ALTER SEQUENCE public."Videos_id_seq" OWNED BY public."Videos".id;
 
 
 --
+-- Name: Creds id; Type: DEFAULT; Schema: public; Owner: yt
+--
+
+ALTER TABLE ONLY public."Creds" ALTER COLUMN id SET DEFAULT nextval('public."Creds_id_seq"'::regclass);
+
+
+--
 -- Name: Videos id; Type: DEFAULT; Schema: public; Owner: yt
 --
 
@@ -65,11 +110,26 @@ ALTER TABLE ONLY public."Videos" ALTER COLUMN id SET DEFAULT nextval('public."Vi
 
 
 --
+-- Data for Name: Creds; Type: TABLE DATA; Schema: public; Owner: yt
+--
+
+COPY public."Creds" (id, key, active, "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
 -- Data for Name: Videos; Type: TABLE DATA; Schema: public; Owner: yt
 --
 
-COPY public."Videos" (id, title, description, "createdAt", "updatedAt") FROM stdin;
+COPY public."Videos" (id, title, description, "metaData", "createdAt", "updatedAt") FROM stdin;
 \.
+
+
+--
+-- Name: Creds_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yt
+--
+
+SELECT pg_catalog.setval('public."Creds_id_seq"', 1, false);
 
 
 --
@@ -77,6 +137,14 @@ COPY public."Videos" (id, title, description, "createdAt", "updatedAt") FROM std
 --
 
 SELECT pg_catalog.setval('public."Videos_id_seq"', 1, false);
+
+
+--
+-- Name: Creds Creds_pkey; Type: CONSTRAINT; Schema: public; Owner: yt
+--
+
+ALTER TABLE ONLY public."Creds"
+    ADD CONSTRAINT "Creds_pkey" PRIMARY KEY (id);
 
 
 --
