@@ -1,6 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Video = sequelize.define('Video', {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     metaData: DataTypes.JSON

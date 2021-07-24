@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var { search } = require("../controllers/ingest");
+var { ingest } = require("../controllers/ingest");
 
 
 /* Search  API */
@@ -12,7 +12,7 @@ router.post('/', async function (req, res, next) {
       return res.status(400).send({ "error": true, "message": "query is mandatory" })
     }
     let publishedAfter = req.body.publishedAfter || null;
-    let apiRes = await search(query)
+    let apiRes = await ingest(query)
     return res.send(apiRes)
   } catch (e) {
     return res.status(500).send(e.message)
