@@ -10,7 +10,7 @@ An Project which ingest/scrap data from YT and provide APIs to fetch and query d
 #### Get video information
 
 ```http
-  GET /api/video?limit=10
+  GET /api/v1/video?limit=10
 ```
 
 
@@ -25,7 +25,7 @@ An Project which ingest/scrap data from YT and provide APIs to fetch and query d
 #### Ingest Videos
 
 ```http
-  POST /api/ingest/:query?publishedAfter=<timestamp> 
+  POST /api/v1/ingest/:query?publishedAfter=<timestamp> 
 ```
 
 | Parameter | Type     | Description                        |
