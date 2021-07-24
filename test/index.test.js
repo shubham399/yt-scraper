@@ -4,8 +4,13 @@ chai.use(deepEqualInAnyOrder);
 const { expect, assert } = require("chai");
 let request = require("supertest");
 let app = require('../src/app');
+const db = require("../src/models");
 
 describe('Server', () => {
+    before(async () => {
+        await db.sequelize.sync({ force: true })
+        await db.Video.create({ title: "hello", "description": "test" })
+    })
     describe('UP Route', () => {
         it('should be running', async () => {
             let res = await request(app).get("/");
@@ -25,10 +30,20 @@ describe('Server', () => {
             assert.strictEqual(res.status, 400, 'Status is  400');
             expect(res.body).to.deep.equalInAnyOrder({ "error": true, "message": "query is mandatory" });
         })
-        it('POST /api/v1/ingest', async () => {
+        it('POST /api/v1/ingest without Time', async () => {
             let res = await request(app).post("/api/v1/ingest").send({ "query": "test" });
             assert.strictEqual(res.status, 202, 'Status is  202');
             expect(res.body).to.deep.equalInAnyOrder({ "message": "Request Accepted." });
+        })
+        it('POST /api/v1/ingest with valid Time', async () => {
+            let res = await request(app).post("/api/v1/ingest").send({ "query": "test", "publishedAfter": new Date().toISOString() });
+            assert.strictEqual(res.status, 202, 'Status is  202');
+            expect(res.body).to.deep.equalInAnyOrder({ "message": "Request Accepted." });
+        })
+        it('POST /api/v1/ingest', async () => {
+            let res = await request(app).post("/api/v1/ingest").send({ "query": "test", "publishedAfter": "not a date" });
+            assert.strictEqual(res.status, 400, 'Status is  400');
+            // expect(res.body).to.deep.equalInAnyOrder({ "message": "Request Accepted." });
         })
     })
 })

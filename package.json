@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./src/bin/www",
     "dev": "nodemon ./src/bin/www",
-    "test": "mocha --exit"
+    "test": "DATABASE_URL=sqlite://./tmp/test.sqlite NODE_ENV=test mocha --exit"
   },
   "dependencies": {
     "axios": "^0.21.1",
