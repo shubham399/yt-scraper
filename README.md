@@ -4,6 +4,16 @@
 An Project which ingest/scrap data from YT and provide APIs to fetch and query data from those dump.
 
 
+## Installation
+
+
+Connect to Database and add a Youtube API Key.
+
+
+```sql
+INSERT INTO "Creds" values (1,'<Valid API Key Here>',true,now(),now());
+```
+
 
 ## API Reference
 
