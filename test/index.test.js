@@ -26,6 +26,16 @@ describe('Server', () => {
             assert.strictEqual(res.status, 200, 'Status is  200');
             expect(res.body).to.deep.equalInAnyOrder({ total: 3, offset: 0, limit: 10, videos: [{ title: "hello", description: "test" }, { title: "my", description: "name" }, { title: "welcome", description: "world" }] });
         })
+        it.skip('GET /api/v1/video with query', async () => {
+            let res = await request(app).get("/api/v1/video?search=hel");
+            assert.strictEqual(res.status, 200, 'Status is  200');
+            expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ title: "hello", description: "test" }] });
+        })
+        it.skip('GET /api/v1/video with query of description', async () => {
+            let res = await request(app).get("/api/v1/video?search=est");
+            assert.strictEqual(res.status, 200, 'Status is  200');
+            expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ title: "my", "description": "name" }] });
+        })
     })
     describe('Ingest APIs', () => {
         it('POST /api/v1/ingest with Empty body', async () => {
