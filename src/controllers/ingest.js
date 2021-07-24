@@ -10,10 +10,8 @@ const ingest = async (query, publishedAfter) => {
     let creds = await models.Creds.findOne({ "where": { "active": true } })
     creds = creds.dataValues;
     const { status, data } = await search(creds, query, publishedAfter)
-    console.log(data);
     if (status === 200) {
         let videos = data.items.map(transformItem)
-        console.log(videos);
         let insert = await models.Video.bulkCreate(videos, { ignoreDuplicates: true })
         return insert;
     }

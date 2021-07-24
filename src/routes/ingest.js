@@ -12,8 +12,8 @@ router.post('/', async function (req, res, next) {
       return res.status(400).send({ "error": true, "message": "query is mandatory" })
     }
     let publishedAfter = req.body.publishedAfter || null;
-    let apiRes = await ingest(query)
-    return res.send(apiRes)
+    ingest(query, publishedAfter)
+    return res.status(202).send({ "message": "Request Accepted." })
   } catch (e) {
     return res.status(500).send(e.message)
   }
