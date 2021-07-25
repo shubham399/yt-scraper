@@ -109,6 +109,15 @@ and your application is ready. If `ENABLE_SCRAPER` is on it will start fetching 
 - [x]  Create an publish a Postman Collection
 
 
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  yarn install
+  yarn run test
+```
+
 ## Reference
 
 - To fetch the latest videos you need to specify these: type=video, order=date, publishedAfter=<SOME_DATE_TIME>
