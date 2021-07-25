@@ -15,7 +15,9 @@ module.exports = {
     "ssl": true, 
     "dialect": "postgres",
     "dialectOptions": {
-      "ssl": true
+      "ssl": true,
+      "require": true, // This will help you. But you will see nwe error
+      "rejectUnauthorized": false // This line will fix new error
     }
   }
 }
