@@ -32,7 +32,7 @@ if (process.env.ENABLE_SCRAPER === "true") {
     var date = new Date();
     date.setDate(date.getDate() - 30);
     let query = process.env.YT_QUERY || "test";
-    let res = await request(app).post("/api/v1/ingest").send({ query, "publishedAfter": date.toISOString() });
+    await request(app).post("/api/v1/ingest").send({ query, "publishedAfter": date.toISOString() });
   });
 }
 server.listen(port);
