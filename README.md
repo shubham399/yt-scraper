@@ -57,14 +57,26 @@ Insert an Valid Youtube API Key to fetch data.
 
 
 
-## Features
+## Features with TODOs
 
 
-- [ ]  Inject API 
+- [x]  Inject API 
 
-- [ ]  Fetch Video API
+- [x]  Fetch Video API
 
-- [ ]  Support more than one API Key for Ingest (In this case we will need release API to release an API Key for use.)
+- [x]  Support more than one API Key for Ingest 
+
+- [ ]  Release API to make the key active again.
+
+- [ ]  Make a Docker image for the project.
+
+- [ ]  Github Action to build an image on push
+
+- [x]  Deploy with Heroku
+
+- [ ]  create a `CNAME` record as `https://yt.shubhkumar.in`
+
+- [ ]  Create an publish a Postman Collection
 
 
 ## Reference
