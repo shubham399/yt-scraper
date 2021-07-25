@@ -8,6 +8,10 @@ An Project which ingest/scrap data from YT and provide APIs to fetch and query d
 ![](https://github.com/shubham399/yt-scraper/actions/workflows/docker-publish.yml/badge.svg)
 
 
+## Postman Collection
+
+To Test this We can download the collection [https://www.getpostman.com/collections/501060408cdba511cf85](https://www.getpostman.com/collections/501060408cdba511cf85) and test in postman.
+
 ## Installation
 
 ### Pre Requisite 
@@ -102,7 +106,7 @@ and your application is ready. If `ENABLE_SCRAPER` is on it will start fetching 
 
 - [x]  create a `CNAME` record as `https://yt.shubhkumar.in`
 
-- [ ]  Create an publish a Postman Collection
+- [x]  Create an publish a Postman Collection
 
 
 ## Reference
