@@ -33,7 +33,6 @@ describe('Server', () => {
         })
         it('GET /api/v1/video?search=hel in title', async () => {
             let res = await request(app).get("/api/v1/video?search=hel");
-            console.log(res.body);
             assert.strictEqual(res.status, 200, 'Status is  200');
             expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ id: "id1", title: "hello", description: "test", "metaData": null }] });
         })

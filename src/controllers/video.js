@@ -26,9 +26,21 @@ const getVideos = async (search, limit = 10, offset = 0) => {
             }
         : {};
     let videos = await models.Video.findAndCountAll({ where, offset, limit });
+    videos["total"] = videos["count"]
+    videos["videos"] = videos["rows"]
+    videos["videos"] = videos["videos"].map(cleanVideo)
+    videos["rows"] = undefined;
+    videos["count"] = undefined;
+    videos["limit"] = limit;
+    videos["offset"] = offset;
     return videos;
 }
 
+
+
+const cleanVideo = (video) => {
+    return { id: video.id, "title": video.title, "description": video.description, "metaData": video.metaData }
+}
 
 
 module.exports.getVideos = getVideos;
