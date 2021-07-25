@@ -22,7 +22,7 @@ const getCredById = async (id) => {
     return creds;
 }
 const deleteCred = async (id) => {
-    let creds = await models.Creds.destory({ where: { id } });
+    let creds = await models.Creds.destroy({ where: { id } });
     return creds;
 }
 
