@@ -6,6 +6,10 @@ const getCreds = async (limit = 10, offset = 0) => {
     let creds = await models.Creds.findAndCountAll({ offset, limit });
     creds["total"] = creds["count"]
     creds["creds"] = creds["rows"]
+    creds["creds"] = creds["creds"].map(cred => {
+        cred["key"] = maskCred(cred["key"]);
+        return cred;
+    })
     creds["rows"] = undefined;
     creds["count"] = undefined;
     creds["limit"] = limit;
@@ -18,14 +22,26 @@ const createCred = async (key) => {
 }
 const getCredById = async (id) => {
     id = parseInt(id);
-    let creds = await models.Creds.findOne({ where: { id } });
-    return creds;
+    let cred = await models.Creds.findOne({ where: { id } });
+    console.log(cred);
+    cred["key"] = maskCred(cred["key"]);
+    return cred
 }
 const deleteCred = async (id) => {
     let creds = await models.Creds.destroy({ where: { id } });
     return creds;
 }
 
+
+const maskCred = (creds) => {
+    let len = creds.length;
+    let potion = len / 3 <= 4 ? len / 3 : 4;
+    let middle = len - (2 * potion)
+    let middlePart = "X".repeat(middle)
+    let start = creds.substring(0, potion);
+    let end = creds.substring(len - potion, len);
+    return start + middlePart + end;
+}
 
 module.exports.createCred = createCred;
 module.exports.getCreds = getCreds;
