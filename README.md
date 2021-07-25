@@ -6,9 +6,28 @@ An Project which ingest/scrap data from YT and provide APIs to fetch and query d
 
 ## Installation
 
+### Pre Requisite 
 
-Connect to Database and add a Youtube API Key.
+1. A Working Postgres DataBase
+2. Valid API Key to scrape youtube
 
+
+## To Run Locally.
+
+```
+docker run --rm  -e YT_QUERY="how to" -e ENABLE_SCRAPER=false -e DATABASE_URL=postgres://yt@yt:172.0.0.1/yt -e NODE_ENV=production -p 8081:3000 ghcr.io/shubham399/yt-scraper:main
+```
+
+> **NOTE**: Example DB Connection URL: postgres://yt@yt:172.0.0.1/yt
+
+| Parameter | Type     | Description                        |
+| :-------- | :------- | :-------------------------------- |
+| `YT_QUERY` | `string` | Query with which we need to scrape youtube |
+| `ENABLE_SCRAPER` | `boolean` | To Enable Auto Scraping with interval of 10 sec |
+| `DATABASE_URL` | `string` | Database URL |
+
+
+Add the Youtube API Key with 
 
 ```bash
 curl --location --request POST 'http://localhost:3000/api/v1/cred' \
@@ -17,8 +36,11 @@ curl --location --request POST 'http://localhost:3000/api/v1/cred' \
     "key": "AIzaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXG03E" 
 }'
 ```
-Insert an Valid Youtube API Key to fetch data.
 
+and your application is ready. If `ENABLE_SCRAPER` is on it will start fetching data from youtube every 10 sec. otherwise we can use `/api/v1/ingest/` API to fetch the data.
+
+
+### A version of this application is already running on `Heroku` with the Host Endpoint as `https://yt.shubhkumar.in`
 
 ## API Reference
 
@@ -70,11 +92,11 @@ Insert an Valid Youtube API Key to fetch data.
 
 - [x]  Make a Docker image for the project.
 
-- [ ]  Github Action to build an image on push
+- [x]  Github Action to test and build an image on push
 
 - [x]  Deploy with Heroku
 
-- [ ]  create a `CNAME` record as `https://yt.shubhkumar.in`
+- [x]  create a `CNAME` record as `https://yt.shubhkumar.in`
 
 - [ ]  Create an publish a Postman Collection
 
