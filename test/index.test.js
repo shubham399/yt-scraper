@@ -1,5 +1,6 @@
 const deepEqualInAnyOrder = require('deep-equal-in-any-order');
 const chai = require('chai');
+const fs = require("fs");
 chai.use(deepEqualInAnyOrder);
 const { expect, assert } = require("chai");
 let request = require("supertest");
@@ -9,9 +10,13 @@ const db = require("../src/models");
 describe('Server', () => {
     before(async () => {
         await db.sequelize.sync({ force: true })
-        await db.Video.create({ title: "hello", "description": "test" })
-        await db.Video.create({ title: "my", "description": "name" })
-        await db.Video.create({ title: "welcome", "description": "world" })
+        await db.Video.create({ id: "id1", title: "hello", "description": "test", "metaData": null })
+        await db.Video.create({ id: "id2", title: "my", "description": "name", "metaData": null })
+        await db.Video.create({ id: "id3", title: "welcome", "description": "world", "metaData": null })
+    })
+    after(() => {
+        console.log("Removing", process.env.DATABASE_URL.split("://")[1])
+        fs.unlinkSync(process.env.DATABASE_URL.split("://")[1]);
     })
     describe('UP Route', () => {
         it('should be running', async () => {
@@ -24,17 +29,17 @@ describe('Server', () => {
         it('GET /api/v1/video', async () => {
             let res = await request(app).get("/api/v1/video");
             assert.strictEqual(res.status, 200, 'Status is  200');
-            expect(res.body).to.deep.equalInAnyOrder({ total: 3, offset: 0, limit: 10, videos: [{ title: "hello", description: "test" }, { title: "my", description: "name" }, { title: "welcome", description: "world" }] });
+            expect(res.body).to.deep.equalInAnyOrder({ total: 3, offset: 0, limit: 10, videos: [{ id: "id1", title: "hello", "description": "test", "metaData": null }, { id: "id2", title: "my", "description": "name", "metaData": null }, { id: "id3", title: "welcome", "description": "world", "metaData": null }] });
         })
         it.skip('GET /api/v1/video with query', async () => {
             let res = await request(app).get("/api/v1/video?search=hel");
             assert.strictEqual(res.status, 200, 'Status is  200');
-            expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ title: "hello", description: "test" }] });
+            expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ id: "id1", title: "hello", description: "test", "metaData": null }] });
         })
         it.skip('GET /api/v1/video with query of description', async () => {
             let res = await request(app).get("/api/v1/video?search=est");
             assert.strictEqual(res.status, 200, 'Status is  200');
-            expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ title: "my", "description": "name" }] });
+            expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ id: "id2", title: "my", "description": "name", "metaData": null }] });
         })
     })
     describe('Ingest APIs', () => {
