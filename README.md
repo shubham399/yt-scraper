@@ -1,9 +1,11 @@
 
 # YT Scraper 
 
-## Badge
-![](https://github.com/shubham399/yt-scraper/actions/workflows/docker-publish.yml/badge.svg)
 An Project which ingest/scrap data from YT and provide APIs to fetch and query data from those dump.
+
+## Badge
+
+![](https://github.com/shubham399/yt-scraper/actions/workflows/docker-publish.yml/badge.svg)
 
 
 ## Installation
