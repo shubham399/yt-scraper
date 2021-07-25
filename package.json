@@ -22,6 +22,6 @@
     "deep-equal-in-any-order": "^1.1.8",
     "mocha": "^9.0.2",
     "nodemon": "^2.0.12",
-    "sqlite3": "^5.0.2",
+    "sqlite3": "^5.0.2"
   }
 }
