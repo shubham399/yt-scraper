@@ -41,7 +41,12 @@ router.get('/:id', async function (req, res, next) {
 router.delete('/:id', async function (req, res, next) {
     try {
         let creds = await deleteCred(req.params.id);
-        return res.json(creds);
+        if (creds === 0) {
+            res.status(404).json({ error: true, message: 'Credential not found' });
+        }
+        else {
+            return res.status(202).json({ "message": "Credential deleted." });
+        }
     }
     catch (err) {
         return res.status(500).json({ error: true, message: err.message });
