@@ -44,14 +44,14 @@ curl --location --request POST 'http://localhost:3000/api/v1/cred' \
 and your application is ready. If `ENABLE_SCRAPER` is on it will start fetching data from youtube every 10 sec. otherwise we can use `/api/v1/ingest/` API to fetch the data.
 
 
-### A version of this application is already running on `Heroku` with the Host Endpoint as `https://yt.shubhkumar.in`
+> A version of this application is already running on `Heroku` with the Host Endpoint as `https://yt.shubhkumar.in`
 
 ## API Reference
 
 #### Get video information
 
 ```http
-  GET /api/v1/video?search=hello&limit=10&offset
+  GET /api/v1/video?search=hello&limit=10&offset=0
 ```
 
 
