@@ -14,7 +14,8 @@
     "morgan": "~1.9.1",
     "node-cron": "^3.0.0",
     "pg": "^8.6.0",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "supertest": "^6.1.4"
   },
   "devDependencies": {
     "chai": "^4.3.4",
@@ -22,6 +23,5 @@
     "mocha": "^9.0.2",
     "nodemon": "^2.0.12",
     "sqlite3": "^5.0.2",
-    "supertest": "^6.1.4"
   }
 }
