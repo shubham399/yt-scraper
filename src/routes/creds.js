@@ -26,7 +26,12 @@ router.get('/', async function (req, res, next) {
 router.get('/:id', async function (req, res, next) {
     try {
         let creds = await getCredById(req.params.id);
-        return res.json(creds);
+        if (creds) {
+            return res.json(creds);
+        }
+        else {
+            return res.status(404).json({ error: true, message: 'Credential not found' });
+        }
     }
     catch (err) {
         return res.status(500).json({ error: true, message: err.message });
