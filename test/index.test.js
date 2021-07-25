@@ -46,6 +46,11 @@ describe('Server', () => {
             assert.strictEqual(res.status, 200, 'Status is  200');
             expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 1, limit: 1, videos: [] });
         })
+        it('GET /api/v1/video?search=nana', async () => {
+            let res = await request(app).get("/api/v1/video?search=nana");
+            assert.strictEqual(res.status, 200, 'Status is  200');
+            expect(res.body).to.deep.equalInAnyOrder({ total: 0, videos: [], limit: 10, offset: 0 });
+        })
         it('GET /api/v1/video?search=hel in title', async () => {
             let res = await request(app).get("/api/v1/video?search=hel");
             assert.strictEqual(res.status, 200, 'Status is  200');
