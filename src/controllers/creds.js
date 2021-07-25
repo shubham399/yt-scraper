@@ -1,4 +1,5 @@
 const models = require("../models");
+const { Op } = require("sequelize");
 
 const getCreds = async (limit = 10, offset = 0) => {
     limit = parseInt(limit);
@@ -31,6 +32,21 @@ const deleteCred = async (id) => {
     let creds = await models.Creds.destroy({ where: { id } });
     return creds;
 }
+const releaseCred = async () => {
+    let date = new Date();
+    date.setDate(date.getDate() - 1);
+    let creds = await models.Creds.update({ active: true }, {
+        where: {
+            [Op.and]: {
+                updatedAt: {
+                    [Op.lte]: date
+                },
+                "active": false
+            }
+        }
+    });
+    return creds;
+}
 
 
 const maskCred = (creds) => {
@@ -45,5 +61,6 @@ const maskCred = (creds) => {
 
 module.exports.createCred = createCred;
 module.exports.getCreds = getCreds;
+module.exports.releaseCred = releaseCred;
 module.exports.getCredById = getCredById;
 module.exports.deleteCred = deleteCred;

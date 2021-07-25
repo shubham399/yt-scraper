@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { createCred, getCreds, getCredById, deleteCred } = require('../controllers/creds');
+const { createCred, getCreds, getCredById, deleteCred, releaseCred } = require('../controllers/creds');
 
 /* Create */
 router.post('/', async function (req, res, next) {
@@ -37,6 +37,16 @@ router.get('/:id', async function (req, res, next) {
         return res.status(500).json({ error: true, message: err.message });
     }
 });
+
+router.patch("/",async function (req, res, next) { 
+    try{
+        await releaseCred()
+        return res.status(202).json({ "message": "Request Accepted." }); 
+    }
+    catch(err){
+        return res.status(500).json({ error: true, message: err.message });
+    }
+})
 /* Delete one Cred */
 router.delete('/:id', async function (req, res, next) {
     try {
