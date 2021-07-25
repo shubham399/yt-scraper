@@ -19,7 +19,7 @@ router.post('/', async function (req, res, next) {
         return res.status(400).send({ "error": true, "message": "publishedAfter is not a valid date" })
       }
     }
-    ingest(query, publishedAfter)
+    await ingest(query, publishedAfter)
     return res.status(202).send({ "message": "Request Accepted." })
   } catch (e) {
     return res.status(500).send(e.message)

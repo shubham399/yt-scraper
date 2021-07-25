@@ -8,19 +8,24 @@ const search = async (creds, query, publishedAfter = new Date()) => {
 
 const ingest = async (query, publishedAfter) => {
     let creds = await models.Creds.findOne({ "where": { "active": true } })
-    creds = creds.dataValues;
-    const { status, data } = await search(creds, query, publishedAfter)
-    if (status === 200) {
-        let videos = data.items.map(transformItem)
-        let insert = await models.Video.bulkCreate(videos, { ignoreDuplicates: true })
-        return insert;
-    }
-    else if (status === 403) {
-        // TODO: disable the API key and use other api key
-        return null;
+    if (creds) {
+        creds = creds.dataValues;
+        const { status, data } = await search(creds, query, publishedAfter)
+        if (status === 200) {
+            let videos = data.items.map(transformItem)
+            let insert = await models.Video.bulkCreate(videos, { ignoreDuplicates: true })
+            return insert;
+        }
+        else if (status === 403 || status === 401) {
+            await models.Creds.update({ "active": false }, { where: { "id": creds.id } })
+           
+        }
+        else {
+            return null;
+        }
     }
     else {
-        return null;
+        throw new Error("No API Key")
     }
 }
 
