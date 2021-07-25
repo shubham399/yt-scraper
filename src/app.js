@@ -8,12 +8,14 @@ const app = express();
 
 db.sequelize.sync({ force: false })
 
-app.use(logger('dev'));
+if (process.env.NODE_ENV !== 'test') {
+  app.use(logger('dev'));
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', function(req, res, next) {
-  res.send({"message":"Server Up!"})
+app.get('/', function (req, res, next) {
+  res.send({ "message": "Server Up!" })
 });
 
 app.use('/api/v1/video', videoRouter);
