@@ -13,6 +13,7 @@ describe('Server', () => {
         await db.Video.create({ id: "id1", title: "hello", "description": "test", "metaData": null })
         await db.Video.create({ id: "id2", title: "my", "description": "name", "metaData": null })
         await db.Video.create({ id: "id3", title: "welcome", "description": "world", "metaData": null })
+        await db.Creds.create({ key: "InvalidKeyHere" })
     })
     after(() => {
         console.log("Removing", process.env.DATABASE_URL.split("://")[1])
