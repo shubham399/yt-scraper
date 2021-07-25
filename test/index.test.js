@@ -31,12 +31,12 @@ describe('Server', () => {
             assert.strictEqual(res.status, 200, 'Status is  200');
             expect(res.body).to.deep.equalInAnyOrder({ total: 3, offset: 0, limit: 10, videos: [{ id: "id1", title: "hello", "description": "test", "metaData": null }, { id: "id2", title: "my", "description": "name", "metaData": null }, { id: "id3", title: "welcome", "description": "world", "metaData": null }] });
         })
-        it.skip('GET /api/v1/video with query', async () => {
+        it('GET /api/v1/video with query', async () => {
             let res = await request(app).get("/api/v1/video?search=hel");
             assert.strictEqual(res.status, 200, 'Status is  200');
             expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ id: "id1", title: "hello", description: "test", "metaData": null }] });
         })
-        it.skip('GET /api/v1/video with query of description', async () => {
+        it('GET /api/v1/video with query of description', async () => {
             let res = await request(app).get("/api/v1/video?search=est");
             assert.strictEqual(res.status, 200, 'Status is  200');
             expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 0, limit: 10, videos: [{ id: "id2", title: "my", "description": "name", "metaData": null }] });
@@ -61,7 +61,7 @@ describe('Server', () => {
         it('POST /api/v1/ingest', async () => {
             let res = await request(app).post("/api/v1/ingest").send({ "query": "test", "publishedAfter": "not a date" });
             assert.strictEqual(res.status, 400, 'Status is  400');
-            // expect(res.body).to.deep.equalInAnyOrder({ "message": "Request Accepted." });
+            expect(res.body).to.deep.equalInAnyOrder({ error: true, "message": "publishedAfter is not a valid date" });
         })
     })
 })
