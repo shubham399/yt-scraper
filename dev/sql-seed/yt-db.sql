@@ -104,6 +104,14 @@ SELECT pg_catalog.setval('public."Creds_id_seq"', 1, false);
 
 
 --
+-- Name: Creds Creds_key_key; Type: CONSTRAINT; Schema: public; Owner: yt
+--
+
+ALTER TABLE ONLY public."Creds"
+    ADD CONSTRAINT "Creds_key_key" UNIQUE (key);
+
+
+--
 -- Name: Creds Creds_pkey; Type: CONSTRAINT; Schema: public; Owner: yt
 --
 
@@ -117,6 +125,20 @@ ALTER TABLE ONLY public."Creds"
 
 ALTER TABLE ONLY public."Videos"
     ADD CONSTRAINT "Videos_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: description_index; Type: INDEX; Schema: public; Owner: yt
+--
+
+CREATE INDEX description_index ON public."Videos" USING btree (description);
+
+
+--
+-- Name: title_index; Type: INDEX; Schema: public; Owner: yt
+--
+
+CREATE INDEX title_index ON public."Videos" USING btree (title);
 
 
 --
