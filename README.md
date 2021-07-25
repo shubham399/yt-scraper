@@ -68,7 +68,7 @@ Insert an Valid Youtube API Key to fetch data.
 
 - [ ]  Release API to make the key active again.
 
-- [ ]  Make a Docker image for the project.
+- [x]  Make a Docker image for the project.
 
 - [ ]  Github Action to build an image on push
 
