@@ -2,6 +2,8 @@ const { Op } = require("sequelize");
 const models = require("../models");
 
 const getVideos = async (search, limit = 10, offset = 0) => {
+    limit = parseInt(limit);
+    offset = parseInt(offset);
     let where = search ?
         process.env.NODE_ENV === 'test' ?
             {

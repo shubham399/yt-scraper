@@ -31,6 +31,21 @@ describe('Server', () => {
             assert.strictEqual(res.status, 200, 'Status is  200');
             expect(res.body).to.deep.equalInAnyOrder({ total: 3, offset: 0, limit: 10, videos: [{ id: "id1", title: "hello", "description": "test", "metaData": null }, { id: "id2", title: "my", "description": "name", "metaData": null }, { id: "id3", title: "welcome", "description": "world", "metaData": null }] });
         })
+        it('GET /api/v1/video?limit=2', async () => {
+            let res = await request(app).get("/api/v1/video?limit=2");
+            assert.strictEqual(res.status, 200, 'Status is  200');
+            expect(res.body).to.deep.equalInAnyOrder({ total: 3, offset: 0, limit: 2, videos: [{ id: "id1", title: "hello", "description": "test", "metaData": null }, { id: "id2", title: "my", "description": "name", "metaData": null }] });
+        })
+        it('GET /api/v1/video?limit=1&offset=1', async () => {
+            let res = await request(app).get("/api/v1/video?limit=1&offset=1");
+            assert.strictEqual(res.status, 200, 'Status is  200');
+            expect(res.body).to.deep.equalInAnyOrder({ total: 3, offset: 1, limit: 1, videos: [{ id: 'id2', title: 'my', description: 'name', metaData: null }] });
+        })
+        it('GET /api/v1/video?limit=1&offset=1&search=test', async () => {
+            let res = await request(app).get("/api/v1/video?limit=1&offset=1&search=test");
+            assert.strictEqual(res.status, 200, 'Status is  200');
+            expect(res.body).to.deep.equalInAnyOrder({ total: 1, offset: 1, limit: 1, videos: [] });
+        })
         it('GET /api/v1/video?search=hel in title', async () => {
             let res = await request(app).get("/api/v1/video?search=hel");
             assert.strictEqual(res.status, 200, 'Status is  200');
