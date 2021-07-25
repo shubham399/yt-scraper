@@ -27,6 +27,10 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
+/** Auto Release any Deactivated key to be used.**/
+cron.schedule('* */10 * * * *', async () => {
+  await request(app).patch("/api/v1/cred").send({});
+});
 if (process.env.ENABLE_SCRAPER === "true") {
   cron.schedule('*/10 * * * * *', async () => {
     var date = new Date();
