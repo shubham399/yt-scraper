@@ -1,5 +1,6 @@
 module.exports = {
   "development": {
+    "use_env_variable": "DATABASE_URL",
     "username": "yt",
     "password": "yt",
     "database": "database_development",

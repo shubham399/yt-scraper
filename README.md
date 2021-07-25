@@ -20,7 +20,20 @@ To Test this We can download the collection [https://www.getpostman.com/collecti
 2. Valid API Key to scrape youtube
 
 
-## To Run Locally.
+## Environment
+
+Set these as Environment Variable
+
+| Parameter | Type     | Description                        |
+| :-------- | :------- | :-------------------------------- |
+| `YT_QUERY` | `string` | Query with which we need to scrape youtube |
+| `ENABLE_SCRAPER` | `boolean` | To Enable Auto Scraping with interval of 10 sec |
+| `DATABASE_URL` | `string` | Database URL |
+
+## To Run Locally .
+
+
+### Inside Docker
 
 ```
 docker run --rm  -e YT_QUERY="how to" -e ENABLE_SCRAPER=false -e DATABASE_URL=postgres://yt@yt:172.0.0.1/yt -e NODE_ENV=production -p 8081:3000 ghcr.io/shubham399/yt-scraper:main
@@ -28,11 +41,23 @@ docker run --rm  -e YT_QUERY="how to" -e ENABLE_SCRAPER=false -e DATABASE_URL=po
 
 > **NOTE**: Example DB Connection URL: postgres://yt@yt:172.0.0.1/yt
 
-| Parameter | Type     | Description                        |
-| :-------- | :------- | :-------------------------------- |
-| `YT_QUERY` | `string` | Query with which we need to scrape youtube |
-| `ENABLE_SCRAPER` | `boolean` | To Enable Auto Scraping with interval of 10 sec |
-| `DATABASE_URL` | `string` | Database URL |
+### Without Docker
+
+Make sure you have `node` installed 
+
+in the root of the repo run 
+
+#### Install Dependency
+
+```bash
+yarn install
+```
+
+#### Run Application
+
+```bash
+yarn run dev
+```
 
 
 Add the Youtube API Key with 
