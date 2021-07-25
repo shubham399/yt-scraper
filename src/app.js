@@ -3,6 +3,7 @@ const logger = require('morgan');
 const db = require("./models");
 const videoRouter = require('./routes/video');
 const ingestRouter = require('./routes/ingest');
+const credsRouter = require('./routes/creds');
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.get('/', function (req, res, next) {
 
 app.use('/api/v1/video', videoRouter);
 app.use('/api/v1/ingest', ingestRouter);
+app.use('/api/v1/cred', credsRouter);
 
 module.exports = app;
