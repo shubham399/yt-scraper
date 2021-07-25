@@ -88,7 +88,7 @@ and your application is ready. If `ENABLE_SCRAPER` is on it will start fetching 
 
 - [x]  Support more than one API Key for Ingest 
 
-- [ ]  Release API to make the key active again.
+- [x]  Release API to make the key active again.
 
 - [x]  Make a Docker image for the project.
 
