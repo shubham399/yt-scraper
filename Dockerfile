@@ -1,4 +1,4 @@
-FROM node:12.20.0
+FROM node:16.15.1
 
 ENV APP_HOME=/var/app/current
 ENV PORT=3000
